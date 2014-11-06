@@ -21,7 +21,7 @@ namespace Motley_Vis_Unit_Tests
 
             for (int i = 1; i <= 100; i++)
             {
-                newCache.Add(i, i*i);
+                newCache.Add(i, i * i);
             }
 
             Assert.AreEqual(1, newCache.TryGet(1, -1));
@@ -39,7 +39,8 @@ namespace Motley_Vis_Unit_Tests
                 newCache.Add(i, i * i);
             }
 
-            Assert.AreEqual(-1, newCache.TryGet(1, -1));
+            Assert.AreNotEqual(1, newCache.TryGet(1, -1));
+            Assert.AreNotEqual(100, newCache.TryGet(10, -1));
         }
     }
 }
