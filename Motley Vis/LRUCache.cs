@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Motley_Vis
 {
-    class LruCache<K, V>
+    public class LruCache<K, V>
     {
         private readonly Dictionary<K, V> cache;
         private readonly LinkedList<K> ordering;

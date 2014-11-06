@@ -13,7 +13,7 @@ namespace Motley_Vis
         [STAThreadAttribute()]
         public static void Main()
         {
-            Application.Run(new DataGridViewVirtualized());
+            Application.Run(new DataGridViewVirtual());
         }
 
         public DataGridViewVirtual()
