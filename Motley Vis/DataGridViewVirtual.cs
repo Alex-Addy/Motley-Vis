@@ -33,23 +33,26 @@ namespace Motley_Vis
             mainGridView.ReadOnly = true;
             mainGridView.AllowUserToAddRows = false;
             mainGridView.AllowUserToOrderColumns = false;
+            mainGridView.RowHeadersVisible = false;
 
             mainGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             mainGridView.CellValueNeeded +=
                 new DataGridViewCellValueEventHandler(mainGridView_CellValueNeeded);
 
-            // Add columns to the DataGridView
-            // var a = new DataGridViewTextBoxColumn();
-            // this.mainGridView.Columns.Add(a);
+            datarows = new DataRowProvider(@"E:\Test_Data\small_csv\people_5_col_with_headers.csv", new char[] { ',' });
 
-            // Add data to the data store
+            foreach (var header in datarows[0])
+            {
+                this.mainGridView.Columns.Add(new DataGridViewTextBoxColumn {HeaderText = header});
+            }
+
+            mainGridView.RowCount = datarows.Count;
         }
 
         private void mainGridView_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
-            // e.Value = row[e.RowIndex].column
-            throw new NotImplementedException();
+            e.Value = datarows[e.RowIndex][e.ColumnIndex];
         }
     }
 }
