@@ -27,6 +27,19 @@ namespace Motley_Vis
 
         private void DataGridViewVirtual_Load(object sender, EventArgs e)
         {
+            OpenFileDialog selectDialog = new OpenFileDialog();
+            DialogResult result = selectDialog.ShowDialog();
+
+            string filename = "";
+            if (result == DialogResult.OK)
+            {
+                filename = selectDialog.FileName;
+            }
+            else
+            {
+                Close();
+            }
+
             // Enable virtual-mode
             mainGridView.VirtualMode = true;
 
@@ -40,7 +53,8 @@ namespace Motley_Vis
             mainGridView.CellValueNeeded +=
                 new DataGridViewCellValueEventHandler(mainGridView_CellValueNeeded);
 
-            datarows = new DataRowProvider(@"E:\Test_Data\small_csv\people_5_col_with_headers.csv", new char[] { ',' });
+            
+            datarows = new DataRowProvider(filename, new char[] { '\t', ',' });
 
             foreach (var header in datarows[0])
             {
