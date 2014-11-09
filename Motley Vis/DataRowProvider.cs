@@ -18,7 +18,8 @@ namespace Motley_Vis
         /// <param name="separators"></param>
         public DataRowProvider(string fileName, char[] separators)
         {
-            cache = new LruCache<int, List<string>>(1000);
+            // TODO: cache pages instead of individual rows
+            cache = new LruCache<int, List<string>>(100000);
             dataSource = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
             seperationChars = separators;
 
@@ -46,12 +47,16 @@ namespace Motley_Vis
 
                     rowIndex++;
                 }
-                Count = rowIndex;
+                Count = rowIndex + 1;
             }
         }
 
         private List<String> Get(int index)
         {
+            if (index < 0 || Count <= index)
+            {
+                throw new IndexOutOfRangeException();
+            }
             if (cache.ContainsKey(index))
             {
                 return cache[index];
