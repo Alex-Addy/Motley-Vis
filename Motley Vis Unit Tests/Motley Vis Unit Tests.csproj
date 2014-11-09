@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LruCacheUnitTests.cs" />
+    <Compile Include="DataRowProviderUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Motley Vis\Motley Vis.csproj">
