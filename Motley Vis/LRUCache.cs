@@ -28,17 +28,14 @@ namespace Motley_Vis
         /// <returns></returns>
         public V TryGet(K key, V def)
         {
-            if (cache.ContainsKey(key))
-            {
-                var item = cache[key];
+            if (!cache.ContainsKey(key)) return def;
+            var item = cache[key];
 
-                // O(n) because of search
-                ordering.Remove(key);
-                ordering.AddLast(key);
+            // O(n) because of search
+            ordering.Remove(key);
+            ordering.AddLast(key);
 
-                return item;
-            }
-            return def;
+            return item;
         }
 
         /// <summary>
@@ -57,6 +54,10 @@ namespace Motley_Vis
             ordering.AddLast(key);
         }
 
+        public int Capacity
+        {
+            get { return capacity; }
+        }
 
         public bool ContainsKey(K key)
         {
@@ -86,10 +87,7 @@ namespace Motley_Vis
         public V this[K key]
         {
             get { return cache[key]; }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { Add(key, value); }
         }
 
         public void Add(KeyValuePair<K, V> item)
