@@ -69,6 +69,11 @@ namespace Motley_Vis
             get { return cache.Keys; }
         }
 
+        /// <summary>
+        /// Removes the value with the specified key from the cache.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>true iff removal was successful</returns>
         public bool Remove(K key)
         {
             return cache.Remove(key) && ordering.Remove(key);
@@ -90,11 +95,18 @@ namespace Motley_Vis
             set { Add(key, value); }
         }
 
+        /// <summary>
+        /// Adds item to the cache. Dropping oldest item if full.
+        /// </summary>
+        /// <param name="item"></param>
         public void Add(KeyValuePair<K, V> item)
         {
             Add(item.Key, item.Value);
         }
 
+        /// <summary>
+        /// Removes all items from cache.
+        /// </summary>
         public void Clear()
         {
             cache.Clear();

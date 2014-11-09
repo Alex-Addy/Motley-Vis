@@ -26,6 +26,11 @@ namespace Motley_Vis
             InitializeCache();
         }
 
+        /// <summary>
+        /// Fill cache and determine total number of rows in file.
+        /// 
+        /// Should only be called once on object creation.
+        /// </summary>
         private void InitializeCache()
         {
             using (var stream = new StreamReader(dataSource))
@@ -51,6 +56,11 @@ namespace Motley_Vis
             }
         }
 
+        /// <summary>
+        /// Gets a row from storage.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         private List<String> Get(int index)
         {
             if (index < 0 || Count <= index)
@@ -80,6 +90,9 @@ namespace Motley_Vis
             get { return this.Get(index); }
         }
 
+        /// <summary>
+        /// The number of rows contained in the file.
+        /// </summary>
         public int Count { get; private set; }
 
         public void Dispose()
