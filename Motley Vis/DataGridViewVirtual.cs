@@ -28,6 +28,7 @@ namespace Motley_Vis
         private void DataGridViewVirtual_Load(object sender, EventArgs e)
         {
             OpenFileDialog selectDialog = new OpenFileDialog();
+            selectDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*";
             DialogResult result = selectDialog.ShowDialog();
 
             string filename = "";
