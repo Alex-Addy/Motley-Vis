@@ -33,6 +33,9 @@ namespace Motley_Vis
         /// </summary>
         private void InitializeCache()
         {
+            // TODO: add indexing
+            // possible indexing implementation:
+            //  scan file directly and look for newline characters, storing their index+1 as the start of each line
             using (var stream = new StreamReader(dataSource))
             {
                 string line;
