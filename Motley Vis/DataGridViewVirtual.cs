@@ -6,8 +6,6 @@ namespace Motley_Vis
 {
     public partial class DataGridViewVirtual : Form
     {
-        private DataGridView mainGridView = new DataGridView();
-
         private DataRowProvider datarows;
 
         [STAThreadAttribute()]
@@ -20,54 +18,37 @@ namespace Motley_Vis
         {
             InitializeComponent();
 
-            mainGridView.Dock = DockStyle.Fill;
-            Controls.Add(mainGridView);
-            Load += new EventHandler(DataGridViewVirtual_Load);
+            dataGridView1.CellValueNeeded +=
+                new DataGridViewCellValueEventHandler(DataGridView_CellValueNeeded);
         }
 
-        private void DataGridViewVirtual_Load(object sender, EventArgs e)
+        private void DataGridViewVirtual_Load(string filename)
         {
-            OpenFileDialog selectDialog = new OpenFileDialog();
-            selectDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*";
-            DialogResult result = selectDialog.ShowDialog();
-
-            string filename = "";
-            if (result == DialogResult.OK)
-            {
-                filename = selectDialog.FileName;
-            }
-            else
-            {
-                Close();
-            }
-
-            // Enable virtual-mode
-            mainGridView.VirtualMode = true;
-
-            mainGridView.ReadOnly = true;
-            mainGridView.AllowUserToAddRows = false;
-            mainGridView.AllowUserToOrderColumns = false;
-            mainGridView.RowHeadersVisible = false;
-
-            mainGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-            mainGridView.CellValueNeeded +=
-                new DataGridViewCellValueEventHandler(mainGridView_CellValueNeeded);
-
-            
+            dataGridView1.Columns.Clear();
             datarows = new DataRowProvider(filename, new char[] { '\t', ',' });
 
             foreach (var header in datarows[0])
             {
-                this.mainGridView.Columns.Add(new DataGridViewTextBoxColumn {HeaderText = header});
+                this.dataGridView1.Columns.Add(new DataGridViewTextBoxColumn {HeaderText = header});
             }
 
-            mainGridView.RowCount = datarows.Count;
+            dataGridView1.RowCount = datarows.Count;
         }
 
-        private void mainGridView_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        private void DataGridView_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
             e.Value = datarows[e.RowIndex][e.ColumnIndex];
+        }
+
+        private void loadFileButton_Click(object sender, EventArgs e)
+        {
+            var selectDialog = new OpenFileDialog {Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*"};
+            DialogResult result = selectDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                DataGridViewVirtual_Load(selectDialog.FileName);
+            }
         }
     }
 }
