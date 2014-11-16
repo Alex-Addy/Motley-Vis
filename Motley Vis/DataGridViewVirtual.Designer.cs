@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataRowProviderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.loadFileButton = new System.Windows.Forms.Button();
+            this.dataRowProviderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataRowProviderBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -49,13 +49,9 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1000, 571);
+            this.dataGridView1.Size = new System.Drawing.Size(1000, 593);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.VirtualMode = true;
-            // 
-            // dataRowProviderBindingSource
-            // 
-            this.dataRowProviderBindingSource.DataSource = typeof(Motley_Vis.DataRowProvider);
             // 
             // loadFileButton
             // 
@@ -67,6 +63,10 @@
             this.loadFileButton.UseCompatibleTextRendering = true;
             this.loadFileButton.UseVisualStyleBackColor = true;
             this.loadFileButton.Click += new System.EventHandler(this.loadFileButton_Click);
+            // 
+            // dataRowProviderBindingSource
+            // 
+            this.dataRowProviderBindingSource.DataSource = typeof(Motley_Vis.DataRowProvider);
             // 
             // DataGridViewVirtual
             // 

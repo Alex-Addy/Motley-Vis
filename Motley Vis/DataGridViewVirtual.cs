@@ -18,6 +18,7 @@ namespace Motley_Vis
         {
             InitializeComponent();
 
+            // This needs to happen at some point after initialization and before the datagrid is used
             dataGridView1.CellValueNeeded +=
                 new DataGridViewCellValueEventHandler(DataGridView_CellValueNeeded);
         }
