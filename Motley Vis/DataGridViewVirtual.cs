@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 
 namespace Motley_Vis
 {
@@ -50,6 +51,13 @@ namespace Motley_Vis
             {
                 DataGridViewVirtual_Load(selectDialog.FileName);
             }
+        }
+
+        private void load3dBut_MouseClick(object sender, MouseEventArgs e)
+        {
+            var wpf3DWindow = new _3d_Data_View.MainView();
+            ElementHost.EnableModelessKeyboardInterop(wpf3DWindow);
+            wpf3DWindow.Show();
         }
     }
 }

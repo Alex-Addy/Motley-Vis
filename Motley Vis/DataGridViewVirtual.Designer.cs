@@ -32,6 +32,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.loadFileButton = new System.Windows.Forms.Button();
             this.dataRowProviderBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.load3dBut = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataRowProviderBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -68,11 +69,22 @@
             // 
             this.dataRowProviderBindingSource.DataSource = typeof(Motley_Vis.DataRowProvider);
             // 
+            // load3dBut
+            // 
+            this.load3dBut.Location = new System.Drawing.Point(113, 11);
+            this.load3dBut.Name = "load3dBut";
+            this.load3dBut.Size = new System.Drawing.Size(75, 23);
+            this.load3dBut.TabIndex = 2;
+            this.load3dBut.Text = "Load 3D";
+            this.load3dBut.UseVisualStyleBackColor = true;
+            this.load3dBut.MouseClick += new System.Windows.Forms.MouseEventHandler(this.load3dBut_MouseClick);
+            // 
             // DataGridViewVirtual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 646);
+            this.Controls.Add(this.load3dBut);
             this.Controls.Add(this.loadFileButton);
             this.Controls.Add(this.dataGridView1);
             this.Name = "DataGridViewVirtual";
@@ -88,5 +100,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource dataRowProviderBindingSource;
         private System.Windows.Forms.Button loadFileButton;
+        private System.Windows.Forms.Button load3dBut;
     }
 }
