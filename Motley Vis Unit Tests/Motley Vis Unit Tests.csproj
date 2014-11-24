@@ -58,9 +58,9 @@
     <Compile Include="DataRowProviderUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Motley Vis\Data Grid View.csproj">
+    <ProjectReference Include="..\Motley Vis\Motley Vis.csproj">
       <Project>{b9b47520-0a6e-429a-898e-402d75237b08}</Project>
-      <Name>Data Grid View</Name>
+      <Name>Motley Vis</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
