@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HelixToolkit;
+using HelixToolkit.Wpf;
 
 namespace _3d_Data_View
 {
@@ -18,9 +20,10 @@ namespace _3d_Data_View
     /// </summary>
     public partial class MainView : Window
     {
-        public MainView()
+        public MainView(IEnumerable<List<double>> rows, int xAxis, int yAxis, int zAxis)
         {
             InitializeComponent();
+            this.DataContext = new MainViewModel(rows, xAxis, yAxis, zAxis);
         }
     }
 }
