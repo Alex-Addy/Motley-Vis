@@ -29,7 +29,7 @@ namespace Motley_Vis
             dataGridView1.Columns.Clear();
             datarows = new DataRowProvider(filename, new char[] { '\t', ',' });
 
-            foreach (var header in datarows[0])
+            foreach (var header in datarows.Headers)
             {
                 this.dataGridView1.Columns.Add(new DataGridViewTextBoxColumn {HeaderText = header});
             }

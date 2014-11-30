@@ -5,8 +5,12 @@ using System.Linq;
 
 namespace Motley_Vis
 {
+    /// <summary>
+    /// Class handles files too large to fit into memory, using LruCache
+    /// </summary>
     public class DataRowProvider : IDisposable
     {
+        private readonly List<String> headerList;
         private readonly LruCache<int, List<String>> cache;
         private readonly char[] seperationChars;
         private readonly FileStream dataSource;
@@ -19,9 +23,12 @@ namespace Motley_Vis
         public DataRowProvider(string fileName, char[] separators)
         {
             // TODO: cache pages instead of individual rows
-            cache = new LruCache<int, List<string>>(100000);
+            cache = new LruCache<int, List<string>>(10000);
             dataSource = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
             seperationChars = separators;
+
+            headerList = File.ReadLines(dataSource.Name).Take(1).First().Split(seperationChars).ToList();
+            this.Headers = headerList;
 
             InitializeCache();
         }
@@ -36,10 +43,12 @@ namespace Motley_Vis
             // TODO: add indexing
             // possible indexing implementation:
             //  scan file directly and look for newline characters, storing their index+1 as the start of each line
+            dataSource.Seek(0, SeekOrigin.Begin);
             using (var stream = new StreamReader(dataSource))
             {
                 string line;
-                dataSource.Seek(0, SeekOrigin.Begin);
+                stream.ReadLine(); // pass up header line
+                
                 int rowIndex = 0;
                 while ((line = stream.ReadLine()) != null)
                 {
@@ -55,7 +64,7 @@ namespace Motley_Vis
 
                     rowIndex++;
                 }
-                Count = rowIndex + 1;
+                Count = rowIndex;
             }
         }
 
@@ -85,13 +94,15 @@ namespace Motley_Vis
         private string GetLineFromFile(int index)
         {
             // TODO: make this not stupidly inefficient
-            return File.ReadLines(dataSource.Name).Skip(index - 1).Take(1).First();
+            return File.ReadLines(dataSource.Name).Skip(index+1).Take(1).First();
         }
 
         public List<string> this[int index]
         {
             get { return this.Get(index); }
         }
+
+        public List<String> Headers { get; private set; } 
 
         /// <summary>
         /// The number of rows contained in the file.
