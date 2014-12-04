@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motley Vis Unit Tests", "Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3d Data View", "3d Data View\3d Data View.csproj", "{D1686BFC-2A0A-40EA-BC21-F7497C1912A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parallel Coordinates", "Parallel Coordinates\Parallel Coordinates.csproj", "{8B5668B6-24A5-4073-A0D1-277197B8407B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D1686BFC-2A0A-40EA-BC21-F7497C1912A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1686BFC-2A0A-40EA-BC21-F7497C1912A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1686BFC-2A0A-40EA-BC21-F7497C1912A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B5668B6-24A5-4073-A0D1-277197B8407B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B5668B6-24A5-4073-A0D1-277197B8407B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B5668B6-24A5-4073-A0D1-277197B8407B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B5668B6-24A5-4073-A0D1-277197B8407B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
