@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 
@@ -50,12 +53,31 @@ namespace Motley_Vis
             if (result == DialogResult.OK)
             {
                 DataGridViewVirtual_Load(selectDialog.FileName);
+                foreach (var header in datarows.Headers)
+                {
+                    comboBox1.Items.Add(header);
+                    comboBox2.Items.Add(header);
+                    comboBox3.Items.Add(header);
+                }
             }
         }
 
         private void load3dBut_MouseClick(object sender, MouseEventArgs e)
         {
-            var wpf3DWindow = new _3d_Data_View.MainView();
+            int index1 = comboBox1.SelectedIndex;
+            int index2 = comboBox2.SelectedIndex;
+            int index3 = comboBox3.SelectedIndex;
+
+            IEnumerable<List<double>> points = datarows.GetEnumerable().
+                Select(r => new List<string> {r[index1], r[index2], r[index3]}.
+                    ConvertAll(str => {
+                        double res;
+                        double.TryParse(str, out res);
+                        return res;
+                    })
+                    );
+
+            var wpf3DWindow = new _3d_Data_View.MainView(points, 0, 1, 2);
             ElementHost.EnableModelessKeyboardInterop(wpf3DWindow);
             wpf3DWindow.Show();
         }

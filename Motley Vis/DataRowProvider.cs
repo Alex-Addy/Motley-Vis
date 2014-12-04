@@ -113,5 +113,10 @@ namespace Motley_Vis
         {
             dataSource.Close();
         }
+
+        public IEnumerable<List<string>> GetEnumerable()
+        {
+            return File.ReadLines(dataSource.Name).Select(s => s.Split(seperationChars).ToList()).Skip(1);
+        }
     }
 }

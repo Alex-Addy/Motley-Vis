@@ -16,19 +16,14 @@ namespace _3d_Data_View
         {
             var modelGroup = new Model3DGroup();
 
-            var meshBuilder = new MeshBuilder(false, false);
-            meshBuilder.AddSphere(new Point3D(0, 0, 0), 0.1, 10, 5);
-
-            // Create a mesh from the meshbuilder (and freeze it)
-            var mesh = meshBuilder.ToMesh(true);
-
-            var blueMaterial = MaterialHelper.CreateMaterial(Colors.Blue);
-
-            // Add points to model group
-            foreach (var row in rows)
+            PointsVisual3D points = new PointsVisual3D
             {
-                modelGroup.Children.Add(new GeometryModel3D { Geometry = mesh, Material = blueMaterial, Transform = new TranslateTransform3D(row[xAxis], row[yAxis], row[zAxis])});
-            }
+                Color = Colors.Blue,
+                Points = new List<Point3D>(rows.Select(row => new Point3D(row[xAxis], row[yAxis], row[zAxis])))
+            };
+
+            modelGroup.Children.Add(points.Content);
+            Model = modelGroup;
         }
 
         public Model3D Model { get; set; }
