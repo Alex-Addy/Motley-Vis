@@ -11,8 +11,6 @@
             
             <ModelVisual3D Content="{Binding Model}" />
             
-            <HelixToolkit:GridLinesVisual3D Width="10" Length="10" MinorDistance="1" MajorDistance="1" Thickness="0.01"/>
-            
         </HelixToolkit:HelixViewport3D>
         
     </Grid>
