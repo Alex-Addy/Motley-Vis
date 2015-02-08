@@ -36,6 +36,7 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.pc_launch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataRowProviderBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -109,11 +110,22 @@
             this.comboBox3.Size = new System.Drawing.Size(121, 21);
             this.comboBox3.TabIndex = 5;
             // 
+            // pc_launch
+            // 
+            this.pc_launch.Location = new System.Drawing.Point(607, 11);
+            this.pc_launch.Name = "pc_launch";
+            this.pc_launch.Size = new System.Drawing.Size(75, 23);
+            this.pc_launch.TabIndex = 6;
+            this.pc_launch.Text = "PC Launch";
+            this.pc_launch.UseVisualStyleBackColor = true;
+            this.pc_launch.Click += new System.EventHandler(this.pc_launch_Click);
+            // 
             // DataGridViewVirtual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 646);
+            this.Controls.Add(this.pc_launch);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
@@ -137,5 +149,6 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Button pc_launch;
     }
 }
