@@ -29,6 +29,7 @@ namespace Motley_Vis
 
             headerList = File.ReadLines(dataSource.Name).Take(1).First().Split(seperationChars).ToList();
             this.Headers = headerList;
+            this.FileName = fileName;
 
             InitializeCache();
         }
@@ -102,7 +103,9 @@ namespace Motley_Vis
             get { return this.Get(index); }
         }
 
-        public List<String> Headers { get; private set; } 
+        public List<String> Headers { get; private set; }
+
+        public String FileName { get; private set; }
 
         /// <summary>
         /// The number of rows contained in the file.

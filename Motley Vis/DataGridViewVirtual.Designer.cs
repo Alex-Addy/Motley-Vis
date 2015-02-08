@@ -36,6 +36,7 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.load2dBut = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataRowProviderBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -59,7 +60,7 @@
             // 
             // loadFileButton
             // 
-            this.loadFileButton.Location = new System.Drawing.Point(12, 12);
+            this.loadFileButton.Location = new System.Drawing.Point(12, 8);
             this.loadFileButton.Name = "loadFileButton";
             this.loadFileButton.Size = new System.Drawing.Size(75, 23);
             this.loadFileButton.TabIndex = 1;
@@ -74,7 +75,7 @@
             // 
             // load3dBut
             // 
-            this.load3dBut.Location = new System.Drawing.Point(113, 11);
+            this.load3dBut.Location = new System.Drawing.Point(93, 8);
             this.load3dBut.Name = "load3dBut";
             this.load3dBut.Size = new System.Drawing.Size(75, 23);
             this.load3dBut.TabIndex = 2;
@@ -86,7 +87,7 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(194, 11);
+            this.comboBox1.Location = new System.Drawing.Point(174, 10);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 3;
@@ -95,7 +96,7 @@
             // 
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(322, 11);
+            this.comboBox2.Location = new System.Drawing.Point(301, 10);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
             this.comboBox2.TabIndex = 4;
@@ -104,16 +105,27 @@
             // 
             this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(449, 11);
+            this.comboBox3.Location = new System.Drawing.Point(428, 10);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 21);
             this.comboBox3.TabIndex = 5;
+            // 
+            // load2dBut
+            // 
+            this.load2dBut.Location = new System.Drawing.Point(555, 10);
+            this.load2dBut.Name = "load2dBut";
+            this.load2dBut.Size = new System.Drawing.Size(75, 23);
+            this.load2dBut.TabIndex = 6;
+            this.load2dBut.Text = "Load 2D";
+            this.load2dBut.UseVisualStyleBackColor = true;
+            this.load2dBut.MouseClick += new System.Windows.Forms.MouseEventHandler(this.load2dBut_MouseClick);
             // 
             // DataGridViewVirtual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 646);
+            this.Controls.Add(this.load2dBut);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
@@ -137,5 +149,6 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Button load2dBut;
     }
 }

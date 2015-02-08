@@ -53,12 +53,18 @@ namespace Motley_Vis
             if (result == DialogResult.OK)
             {
                 DataGridViewVirtual_Load(selectDialog.FileName);
+                comboBox1.Items.Clear();
+                comboBox2.Items.Clear();
+                comboBox3.Items.Clear();
                 foreach (var header in datarows.Headers)
                 {
                     comboBox1.Items.Add(header);
                     comboBox2.Items.Add(header);
                     comboBox3.Items.Add(header);
                 }
+                comboBox1.SelectedIndex = 0;
+                comboBox2.SelectedIndex = 0;
+                comboBox3.SelectedIndex = 0;
             }
         }
 
@@ -80,6 +86,23 @@ namespace Motley_Vis
             var wpf3DWindow = new _3d_Data_View.MainView(points, 0, 1, 2);
             ElementHost.EnableModelessKeyboardInterop(wpf3DWindow);
             wpf3DWindow.Show();
+        }
+
+        private void load2dBut_MouseClick(object sender, MouseEventArgs e)
+        {
+            int index1 = comboBox1.SelectedIndex;
+            int index2 = comboBox2.SelectedIndex;
+
+            var window = new _2D_Data_Graph.GraphView(datarows.FileName, comboBox1.SelectedText, comboBox2.SelectedText,
+                datarows.GetEnumerable().Select(r =>
+                {
+                    double res; double.TryParse(r[index1], out res); return res;
+                }),
+                datarows.GetEnumerable().Select(r =>
+                {
+                    double res; double.TryParse(r[index2], out res); return res;
+                }));
+            window.Show();
         }
     }
 }
