@@ -27,7 +27,7 @@ namespace ParallelCoordinates
         // Margin between the axes and the top and bot of the canvas
         private const double TopBotMargin = 30;
         private const double AxisStrokeThickness = 2;
-        private const double LineStrokeThickness = 2;
+        private const double LineStrokeThickness = 1;
 
         public MainWindow(IEnumerable<List<double>> rows, List<String> headers)
         {
@@ -139,7 +139,7 @@ namespace ParallelCoordinates
 
                 foreach (var _ in Enumerable.Range(0, axisLocs.Count-1))
                 {
-                    var newLn = new Line { Stroke = Brushes.Black, StrokeThickness = LineStrokeThickness };
+                    var newLn = new Line { Stroke = Brushes.DarkCyan, StrokeThickness = LineStrokeThickness };
                     lines.Add(newLn);
                     drawCanvas.Children.Add(newLn);
                 }
