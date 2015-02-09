@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Parallel Coordinates" Height="350" Width="529">
     <Grid>
-        <Canvas x:Name="Canvas"/>
+        <Canvas x:Name="Canvas" SizeChanged="Canvas_SizeChanged"/>
 
     </Grid>
 </Window>

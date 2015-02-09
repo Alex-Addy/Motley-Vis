@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,14 +20,37 @@ namespace ParallelCoordinates
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<Line> axesList = new List<Line>();
+
         public MainWindow(IEnumerable<List<double>> rows, List<String> headers)
         {
             InitializeComponent();
 
-            var txt1 = new TextBlock {FontSize = 14, Text = "Hello World!"};
-            Canvas.SetTop(txt1, 100);
-            Canvas.SetLeft(txt1, 10);
-            this.Canvas.Children.Add(txt1);
+            foreach (string header in headers)
+            {
+                var newLn = new Line { Stroke = Brushes.Black, StrokeThickness = 2 };
+                axesList.Add(newLn);
+                this.Canvas.Children.Add(newLn);
+            }
+        }
+
+        private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            redrawAxis();
+        }
+
+        private void redrawAxis()
+        {
+            var spacing = Canvas.ActualWidth/(axesList.Count + 1);
+
+            foreach (var i in Enumerable.Range(0, axesList.Count))
+            {
+                var axis = axesList[i];
+                axis.Y1 = 30;
+                axis.Y2 = this.Canvas.ActualHeight - 30;
+                axis.X1 = spacing*(i+1);
+                axis.X2 = spacing*(i+1);
+            }
         }
     }
 }
