@@ -20,7 +20,7 @@ namespace ParallelCoordinates
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly List<Line> axes = new List<Line>();
+        private readonly List<Axis> axes = new List<Axis>();
         private readonly List<Tuple<double, double>> ranges = new List<Tuple<double, double>>();
         private readonly List<PcLine> pcLines = new List<PcLine>();
 
@@ -36,9 +36,8 @@ namespace ParallelCoordinates
             // Setup axes
             foreach (var header in headers)
             {
-                var newLn = new Line { Stroke = Brushes.Black, StrokeThickness = AxisStrokeThickness };
+                var newLn = new Axis(this.Canvas);
                 axes.Add(newLn);
-                this.Canvas.Children.Add(newLn);
             }
 
             // HACK: needed because the rows must be enumerated twice
@@ -112,17 +111,48 @@ namespace ParallelCoordinates
             foreach (var i in Enumerable.Range(0, axes.Count))
             {
                 var axis = axes[i];
-                axis.Y1 = TopBotMargin;
-                axis.Y2 = this.Canvas.ActualHeight - TopBotMargin;
-                axis.X1 = spacing*(i+1);
-                axis.X2 = spacing*(i+1);
+                axis.Draw(spacing*(i+1), this.Canvas.ActualHeight - TopBotMargin);
             }
         }
         
+        private class Axis
+        {
+            private readonly Line mainLine;
+
+            public Axis(Canvas drawCanvas)
+            {
+                mainLine = new Line {Y1 = TopBotMargin, Stroke = Brushes.Black, StrokeThickness = AxisStrokeThickness};
+                drawCanvas.Children.Add(mainLine);
+            }
+
+            public void Draw(double newX, double newY2)
+            {
+                mainLine.Y2 = newY2;
+
+                mainLine.X1 = newX;
+                mainLine.X2 = newX;
+            }
+
+            public double Top
+            {
+                get { return mainLine.Y1; }
+            }
+
+            public double Bot
+            {
+                get { return mainLine.Y2; }
+            }
+
+            public double HorizontalPosition
+            {
+                get { return mainLine.X1; }
+            }
+        }
+
         /// <summary>
         /// Handles a single Parallel Coordinates line
         /// </summary>
-        private struct PcLine
+        private class PcLine
         {
             private readonly List<double> axisLocs;
             private readonly List<Line> lines;
@@ -149,7 +179,7 @@ namespace ParallelCoordinates
             /// Redraws component line given new axes positions
             /// </summary>
             /// <param name="axes"></param>
-            public void Draw(List<Line> axes)
+            public void Draw(List<Axis> axes)
             {
                 foreach (var i in Enumerable.Range(0, lines.Count))
                 {
@@ -157,13 +187,13 @@ namespace ParallelCoordinates
                     var left_axis = axes[i];
                     var right_axis = axes[i+1];
 
-                    line.X1 = left_axis.X1;
-                    line.X2 = right_axis.X1;
+                    line.X1 = left_axis.HorizontalPosition;
+                    line.X2 = right_axis.HorizontalPosition;
 
-                    var offset1 = Math.Abs(left_axis.Y1 - left_axis.Y2)*axisLocs[i];
-                    var offset2 = Math.Abs(right_axis.Y1 - right_axis.Y2)*axisLocs[i+1];
-                    line.Y1 = left_axis.Y1 + offset1;
-                    line.Y2 = right_axis.Y1 + offset2;
+                    var offset1 = Math.Abs(left_axis.Top - left_axis.Bot)*axisLocs[i];
+                    var offset2 = Math.Abs(right_axis.Top - right_axis.Bot)*axisLocs[i+1];
+                    line.Y1 = left_axis.Top + offset1;
+                    line.Y2 = right_axis.Top + offset2;
                 }
             }
         }
