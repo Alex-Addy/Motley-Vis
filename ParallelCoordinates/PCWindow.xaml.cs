@@ -36,7 +36,7 @@ namespace ParallelCoordinates
             // Setup axes
             foreach (var header in headers)
             {
-                var newLn = new Axis(this.Canvas);
+                var newLn = new Axis(header, this.Canvas);
                 axes.Add(newLn);
             }
 
@@ -118,9 +118,14 @@ namespace ParallelCoordinates
         private class Axis
         {
             private readonly Line mainLine;
+            private readonly TextBlock nameBlock;
 
-            public Axis(Canvas drawCanvas)
+            public Axis(string label, Canvas drawCanvas)
             {
+                // TODO
+                //nameBlock = new TextBlock {Text = label};
+                //drawCanvas.Children.Add(nameBlock);
+
                 mainLine = new Line {Y1 = TopBotMargin, Stroke = Brushes.Black, StrokeThickness = AxisStrokeThickness};
                 drawCanvas.Children.Add(mainLine);
             }
@@ -155,7 +160,8 @@ namespace ParallelCoordinates
         private class PcLine
         {
             private readonly List<double> axisLocs;
-            private readonly List<Line> lines;
+
+            private readonly Polyline line;
 
             /// <summary>
             /// Creates a new PcLine
@@ -165,14 +171,19 @@ namespace ParallelCoordinates
             public PcLine(IEnumerable<double> percents, Canvas drawCanvas)
             {
                 axisLocs = new List<double>(percents);
-                lines = new List<Line>(axisLocs.Count-1);
-
-                foreach (var _ in Enumerable.Range(0, axisLocs.Count-1))
+                line = new Polyline
                 {
-                    var newLn = new Line { Stroke = Brushes.DarkCyan, StrokeThickness = LineStrokeThickness };
-                    lines.Add(newLn);
-                    drawCanvas.Children.Add(newLn);
+                    Stroke = Brushes.SlateGray,
+                    StrokeThickness = LineStrokeThickness,
+                    Points = new PointCollection(axisLocs.Count)
+                };
+
+                foreach (var i in Enumerable.Range(0, axisLocs.Count))
+                {
+                    line.Points.Add(new Point());
                 }
+
+                drawCanvas.Children.Add(line);
             }
 
             /// <summary>
@@ -181,19 +192,13 @@ namespace ParallelCoordinates
             /// <param name="axes"></param>
             public void Draw(List<Axis> axes)
             {
-                foreach (var i in Enumerable.Range(0, lines.Count))
+                foreach (var i in Enumerable.Range(0, line.Points.Count))
                 {
-                    var line = lines[i];
-                    var left_axis = axes[i];
-                    var right_axis = axes[i+1];
+                    var ax = axes[i];
 
-                    line.X1 = left_axis.HorizontalPosition;
-                    line.X2 = right_axis.HorizontalPosition;
+                    var p = new Point {X = ax.HorizontalPosition, Y = ax.Top + Math.Abs(ax.Top - ax.Bot)*axisLocs[i]};
 
-                    var offset1 = Math.Abs(left_axis.Top - left_axis.Bot)*axisLocs[i];
-                    var offset2 = Math.Abs(right_axis.Top - right_axis.Bot)*axisLocs[i+1];
-                    line.Y1 = left_axis.Top + offset1;
-                    line.Y2 = right_axis.Top + offset2;
+                    line.Points[i] = p;
                 }
             }
         }
