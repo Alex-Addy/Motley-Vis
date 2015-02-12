@@ -119,6 +119,8 @@ namespace ParallelCoordinates
         {
             private readonly Line mainLine;
             private readonly TextBlock nameBlock;
+            private readonly Line topTick;
+            private readonly Line botTick;
 
             public Axis(string label, Canvas drawCanvas)
             {
@@ -127,15 +129,31 @@ namespace ParallelCoordinates
                 //drawCanvas.Children.Add(nameBlock);
 
                 mainLine = new Line {Y1 = TopBotMargin, Stroke = Brushes.Black, StrokeThickness = AxisStrokeThickness};
+                topTick = new Line {Stroke = Brushes.Black, StrokeThickness = 1.5, Y1 = mainLine.Y1, Y2 = mainLine.Y1};
+                botTick = new Line {Stroke = Brushes.Black, StrokeThickness = 1.5};
+
                 drawCanvas.Children.Add(mainLine);
+                drawCanvas.Children.Add(topTick);
+                drawCanvas.Children.Add(botTick);
             }
 
             public void Draw(double newX, double newY2)
             {
+                const double tickSize = 5;
+
                 mainLine.Y2 = newY2;
 
                 mainLine.X1 = newX;
                 mainLine.X2 = newX;
+
+                // draw ticks
+                topTick.X1 = newX - tickSize;
+                topTick.X2 = newX + tickSize;
+
+                botTick.Y1 = newY2;
+                botTick.Y2 = newY2;
+                botTick.X1 = newX - tickSize;
+                botTick.X2 = newX + tickSize;
             }
 
             public double Top
