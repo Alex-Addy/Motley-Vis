@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using Motley_Vis.Properties;
 
 namespace Motley_Vis
 {
@@ -70,22 +71,51 @@ namespace Motley_Vis
 
         private void load3dBut_MouseClick(object sender, MouseEventArgs e)
         {
-            int index1 = comboBox1.SelectedIndex;
-            int index2 = comboBox2.SelectedIndex;
-            int index3 = comboBox3.SelectedIndex;
 
-            IEnumerable<List<double>> points = datarows.GetEnumerable().
-                Select(r => new List<string> {r[index1], r[index2], r[index3]}.
-                    ConvertAll(str => {
+            if (datarows != null)
+            {
+                int index1 = comboBox1.SelectedIndex;
+                int index2 = comboBox2.SelectedIndex;
+                int index3 = comboBox3.SelectedIndex;
+
+                IEnumerable<List<double>> points = datarows.GetEnumerable().
+                    Select(r => new List<string> {r[index1], r[index2], r[index3]}.
+                        ConvertAll(str => {
+                                              double res;
+                                              double.TryParse(str, out res);
+                                              return res;
+                        })
+                    );
+
+                var wpf3DWindow = new _3d_Data_View.MainView(points, 0, 1, 2);
+                ElementHost.EnableModelessKeyboardInterop(wpf3DWindow);
+                wpf3DWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show(Resources.DataGridViewVirtual_No_Data_Loaded_Error);
+            }
+        }
+
+        private void pc_launch_Click(object sender, EventArgs e)
+        {
+            if (datarows != null)
+            {
+                IEnumerable<List<double>> measures = datarows.GetEnumerable().
+                    Select(r => r.ConvertAll(str =>
+                    {
                         double res;
                         double.TryParse(str, out res);
                         return res;
                     })
                     );
-
-            var wpf3DWindow = new _3d_Data_View.MainView(points, 0, 1, 2);
-            ElementHost.EnableModelessKeyboardInterop(wpf3DWindow);
-            wpf3DWindow.Show();
+                var wpfPCWindow = new ParallelCoordinates.MainWindow(measures, datarows.Headers);
+                wpfPCWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show(Resources.DataGridViewVirtual_No_Data_Loaded_Error);
+            }
         }
 
         private void load2dBut_MouseClick(object sender, MouseEventArgs e)

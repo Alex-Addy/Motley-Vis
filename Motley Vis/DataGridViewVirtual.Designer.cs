@@ -37,6 +37,7 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.load2dBut = new System.Windows.Forms.Button();
+            this.pc_launch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataRowProviderBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -119,6 +120,15 @@
             this.load2dBut.Text = "Load 2D";
             this.load2dBut.UseVisualStyleBackColor = true;
             this.load2dBut.MouseClick += new System.Windows.Forms.MouseEventHandler(this.load2dBut_MouseClick);
+            // pc_launch
+            // 
+            this.pc_launch.Location = new System.Drawing.Point(607, 11);
+            this.pc_launch.Name = "pc_launch";
+            this.pc_launch.Size = new System.Drawing.Size(75, 23);
+            this.pc_launch.TabIndex = 6;
+            this.pc_launch.Text = "PC Launch";
+            this.pc_launch.UseVisualStyleBackColor = true;
+            this.pc_launch.Click += new System.EventHandler(this.pc_launch_Click);
             // 
             // DataGridViewVirtual
             // 
@@ -126,6 +136,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 646);
             this.Controls.Add(this.load2dBut);
+            this.Controls.Add(this.pc_launch);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
@@ -150,5 +161,6 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Button load2dBut;
+        private System.Windows.Forms.Button pc_launch;
     }
 }
