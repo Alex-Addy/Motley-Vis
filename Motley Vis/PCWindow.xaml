@@ -1,4 +1,4 @@
-﻿<Window x:Class="ParallelCoordinates.MainWindow"
+﻿<Window x:Class="ParallelCoordinates.ParallelCoordinatesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Parallel Coordinates" Height="350" Width="529">

@@ -78,7 +78,7 @@ namespace Motley_Vis
                         return res;
                     })
                     );
-                var wpfPCWindow = new ParallelCoordinates.MainWindow(measures, datarows.Headers);
+                var wpfPCWindow = new ParallelCoordinates.ParallelCoordinatesWindow(measures, datarows.Headers);
                 wpfPCWindow.Show();
             }
             else

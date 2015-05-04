@@ -57,6 +57,9 @@
     </Compile>
     <Compile Include="DataRowProvider.cs" />
     <Compile Include="LruCache.cs" />
+    <Compile Include="PCWindow.xaml.cs">
+      <DependentUpon>PCWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DataGridViewVirtual.resx">
       <DependentUpon>DataGridViewVirtual.cs</DependentUpon>
@@ -87,10 +90,12 @@
       <Project>{963780c2-11d7-4438-806a-2d95fb0a0913}</Project>
       <Name>2D Data Graph</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ParallelCoordinates\ParallelCoordinates.csproj">
-      <Project>{5029862b-e795-4752-af1b-7b815f1ce9ea}</Project>
-      <Name>ParallelCoordinates</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="PCWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

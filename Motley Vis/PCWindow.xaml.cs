@@ -16,9 +16,9 @@ using System.Windows.Shapes;
 namespace ParallelCoordinates
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ParallelCoordinatesWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ParallelCoordinatesWindow : Window
     {
         private readonly List<Axis> axes = new List<Axis>();
         private readonly List<Tuple<double, double>> ranges = new List<Tuple<double, double>>();
@@ -29,7 +29,7 @@ namespace ParallelCoordinates
         private const double AxisStrokeThickness = 2;
         private const double LineStrokeThickness = 1;
 
-        public MainWindow(IEnumerable<List<double>> rows, List<String> headers)
+        public ParallelCoordinatesWindow(IEnumerable<List<double>> rows, List<String> headers)
         {
             InitializeComponent();
 
