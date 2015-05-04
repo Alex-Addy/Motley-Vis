@@ -87,10 +87,6 @@
       <Project>{963780c2-11d7-4438-806a-2d95fb0a0913}</Project>
       <Name>2D Data Graph</Name>
     </ProjectReference>
-    <ProjectReference Include="..\3d Data View\3d Data View.csproj">
-      <Project>{d1686bfc-2a0a-40ea-bc21-f7497c1912a4}</Project>
-      <Name>3d Data View</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ParallelCoordinates\ParallelCoordinates.csproj">
       <Project>{5029862b-e795-4752-af1b-7b815f1ce9ea}</Project>
       <Name>ParallelCoordinates</Name>
