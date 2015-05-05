@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ParallelCoordinates
@@ -28,6 +21,7 @@ namespace ParallelCoordinates
         private const double TopBotMargin = 30;
         private const double AxisStrokeThickness = 2;
         private const double LineStrokeThickness = 1;
+        private const double MinAxisSpacing = 30;
 
         public ParallelCoordinatesWindow(IEnumerable<List<double>> rows, List<String> headers)
         {
@@ -87,6 +81,12 @@ namespace ParallelCoordinates
                 }
                 pcLines.Add(new PcLine(percents, this.Canvas));
             }
+
+            Canvas.Width = Math.Max(1024, MinAxisSpacing*axes.Count*2);
+            Canvas.Height = 860;
+
+            DrawAxes();  // The axis draw MUST happen before the line redraw
+            DrawLines(); // so that the lines redraw to the new locations and not the old
         }
 
         private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -210,14 +210,15 @@ namespace ParallelCoordinates
             /// <param name="axes"></param>
             public void Draw(List<Axis> axes)
             {
+                var newPoints = new PointCollection(line.Points.Count);
                 foreach (var i in Enumerable.Range(0, line.Points.Count))
                 {
                     var ax = axes[i];
 
                     var p = new Point {X = ax.HorizontalPosition, Y = ax.Top + Math.Abs(ax.Top - ax.Bot)*axisLocs[i]};
-
-                    line.Points[i] = p;
+                    newPoints.Add(p);
                 }
+                line.Points = newPoints;
             }
         }
     }

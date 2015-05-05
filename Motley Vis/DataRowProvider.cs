@@ -30,8 +30,8 @@ namespace Motley_Vis
             seperationChars = separators;
 
             headerList = File.ReadLines(dataSource.Name).Take(1).First().Split(seperationChars).ToList();
-            this.Headers = headerList;
-            this.FileName = fileName;
+            Headers = headerList;
+            FileName = fileName;
 
             InitializeCache();
         }
@@ -102,7 +102,7 @@ namespace Motley_Vis
 
         public List<string> this[int index]
         {
-            get { return this.Get(index); }
+            get { return Get(index); }
         }
 
         public List<String> Headers { get; private set; }

@@ -4,7 +4,7 @@
         Title="Parallel Coordinates" Height="768" Width="1024">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <Canvas x:Name="Canvas" SizeChanged="Canvas_SizeChanged"/>
+            <Canvas x:Name="Canvas" SnapsToDevicePixels="True" SizeChanged="Canvas_SizeChanged"/>
         </ScrollViewer>
     </Grid>
 </Window>

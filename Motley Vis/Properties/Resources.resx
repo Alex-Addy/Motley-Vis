@@ -117,4 +117,8 @@
   <data name="DataGridViewVirtual_No_Data_Loaded_Error" xml:space="preserve">
     <value>Need data loaded before displaying it.</value>
   </data>
+  <data name="Click_CSV_Files_All_Files" xml:space="preserve">
+    <value>CSV Files (*.csv)|*.csv|All Files (*.*)|*</value>
+    <comment>Argument string for OpenFileDialog to allow for filtering to just csv files or all files.</comment>
+  </data>
 </root>

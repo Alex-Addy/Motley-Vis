@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Forms.Integration;
 using Motley_Vis.Properties;
 
 namespace Motley_Vis
@@ -19,7 +16,7 @@ namespace Motley_Vis
             Application.Run(new DataGridViewVirtual());
         }
 
-        public DataGridViewVirtual()
+        private DataGridViewVirtual()
         {
             InitializeComponent();
 
@@ -31,11 +28,11 @@ namespace Motley_Vis
         private void DataGridViewVirtual_Load(string filename)
         {
             dataGridView1.Columns.Clear();
-            datarows = new DataRowProvider(filename, new char[] { '\t', ',' });
+            datarows = new DataRowProvider(filename, new[] { '\t', ',' });
 
             foreach (var header in datarows.Headers)
             {
-                this.dataGridView1.Columns.Add(new DataGridViewTextBoxColumn {HeaderText = header});
+                dataGridView1.Columns.Add(new DataGridViewTextBoxColumn {HeaderText = header});
             }
 
             dataGridView1.RowCount = datarows.Count;
@@ -44,26 +41,6 @@ namespace Motley_Vis
         private void DataGridView_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
             e.Value = datarows[e.RowIndex][e.ColumnIndex];
-        }
-
-        private void loadFileButton_Click(object sender, EventArgs e)
-        {
-            var selectDialog = new OpenFileDialog {Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*"};
-            DialogResult result = selectDialog.ShowDialog();
-
-            if (result == DialogResult.OK)
-            {
-                DataGridViewVirtual_Load(selectDialog.FileName);
-                comboBox1.Items.Clear();
-                comboBox2.Items.Clear();
-                foreach (var header in datarows.Headers)
-                {
-                    comboBox1.Items.Add(header);
-                    comboBox2.Items.Add(header);
-                }
-                comboBox1.SelectedIndex = 0;
-                comboBox2.SelectedIndex = 0;
-            }
         }
 
         private void load2dBut_MouseClick(object sender, MouseEventArgs e)
@@ -106,7 +83,7 @@ namespace Motley_Vis
 
         private void loadFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var selectDialog = new OpenFileDialog { Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*" };
+            var selectDialog = new OpenFileDialog { Filter = Resources.Click_CSV_Files_All_Files };
             DialogResult result = selectDialog.ShowDialog();
 
             if (result == DialogResult.OK)

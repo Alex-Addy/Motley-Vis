@@ -11,6 +11,7 @@ namespace Motley_Vis_Unit_Tests
         [ExpectedException(typeof (ArgumentOutOfRangeException))]
         public void NegativeCapacityTest()
         {
+            // ReSharper disable once UnusedVariable
             var newCache = new LruCache<int, double>(-1);
         }
 
