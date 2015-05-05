@@ -14,6 +14,7 @@ namespace Motley_Vis
         private readonly LruCache<int, List<String>> cache;
         private readonly char[] seperationChars;
         private readonly FileStream dataSource;
+        private const int CacheSize = 100000;
 
         /// <summary>
         /// Given a file and separator list, provide a list of non-empty lines.
@@ -23,7 +24,8 @@ namespace Motley_Vis
         public DataRowProvider(string fileName, char[] separators)
         {
             // TODO: cache pages instead of individual rows
-            cache = new LruCache<int, List<string>>(10000);
+            cache = new LruCache<int, List<string>>(CacheSize);
+            // TODO: deal with file open failure
             dataSource = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
             seperationChars = separators;
 

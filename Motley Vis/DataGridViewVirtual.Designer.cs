@@ -30,13 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.loadFileButton = new System.Windows.Forms.Button();
-            this.dataRowProviderBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.launchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parallelCoordinatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.load2dBut = new System.Windows.Forms.Button();
-            this.pc_launch = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.dataRowProviderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataRowProviderBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,42 +62,57 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.VirtualMode = true;
             // 
-            // loadFileButton
+            // menuStrip1
             // 
-            this.loadFileButton.Location = new System.Drawing.Point(12, 8);
-            this.loadFileButton.Name = "loadFileButton";
-            this.loadFileButton.Size = new System.Drawing.Size(75, 23);
-            this.loadFileButton.TabIndex = 1;
-            this.loadFileButton.Text = "Load File";
-            this.loadFileButton.UseCompatibleTextRendering = true;
-            this.loadFileButton.UseVisualStyleBackColor = true;
-            this.loadFileButton.Click += new System.EventHandler(this.loadFileButton_Click);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.launchToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1024, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // dataRowProviderBindingSource
+            // fileToolStripMenuItem
             // 
-            this.dataRowProviderBindingSource.DataSource = typeof(Motley_Vis.DataRowProvider);
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadFileToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
             // 
-            // comboBox1
+            // launchToolStripMenuItem
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(93, 10);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 3;
+            this.launchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dGraphToolStripMenuItem,
+            this.parallelCoordinatesToolStripMenuItem});
+            this.launchToolStripMenuItem.Name = "launchToolStripMenuItem";
+            this.launchToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.launchToolStripMenuItem.Text = "Launch";
             // 
-            // comboBox2
+            // dGraphToolStripMenuItem
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(220, 10);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 4;
+            this.dGraphToolStripMenuItem.Name = "dGraphToolStripMenuItem";
+            this.dGraphToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.dGraphToolStripMenuItem.Text = "2D Graph";
+            // 
+            // parallelCoordinatesToolStripMenuItem
+            // 
+            this.parallelCoordinatesToolStripMenuItem.Name = "parallelCoordinatesToolStripMenuItem";
+            this.parallelCoordinatesToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.parallelCoordinatesToolStripMenuItem.Text = "Parallel Coordinates";
+            this.parallelCoordinatesToolStripMenuItem.Click += new System.EventHandler(this.parallelCoordinatesToolStripMenuItem_Click);
+            // 
+            // loadFileToolStripMenuItem
+            // 
+            this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
+            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.loadFileToolStripMenuItem.Text = "Load File";
+            this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
             // 
             // load2dBut
             // 
-            this.load2dBut.Location = new System.Drawing.Point(347, 8);
+            this.load2dBut.Location = new System.Drawing.Point(371, 10);
             this.load2dBut.Name = "load2dBut";
             this.load2dBut.Size = new System.Drawing.Size(75, 23);
             this.load2dBut.TabIndex = 6;
@@ -100,15 +120,27 @@
             this.load2dBut.UseVisualStyleBackColor = true;
             this.load2dBut.MouseClick += new System.Windows.Forms.MouseEventHandler(this.load2dBut_MouseClick);
             // 
-            // pc_launch
+            // comboBox2
             // 
-            this.pc_launch.Location = new System.Drawing.Point(428, 8);
-            this.pc_launch.Name = "pc_launch";
-            this.pc_launch.Size = new System.Drawing.Size(75, 23);
-            this.pc_launch.TabIndex = 6;
-            this.pc_launch.Text = "PC Launch";
-            this.pc_launch.UseVisualStyleBackColor = true;
-            this.pc_launch.Click += new System.EventHandler(this.pc_launch_Click);
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(244, 12);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 4;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(117, 12);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 3;
+            // 
+            // dataRowProviderBindingSource
+            // 
+            this.dataRowProviderBindingSource.DataSource = typeof(Motley_Vis.DataRowProvider);
             // 
             // DataGridViewVirtual
             // 
@@ -116,16 +148,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 646);
             this.Controls.Add(this.load2dBut);
-            this.Controls.Add(this.pc_launch);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.loadFileButton);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "DataGridViewVirtual";
             this.Text = "DataGridViewVirtual";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataRowProviderBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -133,10 +168,14 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource dataRowProviderBindingSource;
-        private System.Windows.Forms.Button loadFileButton;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem launchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dGraphToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parallelCoordinatesToolStripMenuItem;
         private System.Windows.Forms.Button load2dBut;
-        private System.Windows.Forms.Button pc_launch;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

@@ -66,7 +66,24 @@ namespace Motley_Vis
             }
         }
 
-        private void pc_launch_Click(object sender, EventArgs e)
+        private void load2dBut_MouseClick(object sender, MouseEventArgs e)
+        {
+            int index1 = comboBox1.SelectedIndex;
+            int index2 = comboBox2.SelectedIndex;
+
+            var window = new _2D_Data_Graph.GraphView(datarows.FileName, comboBox1.SelectedText, comboBox2.SelectedText,
+                datarows.GetEnumerable().Select(r =>
+                {
+                    double res; double.TryParse(r[index1], out res); return res;
+                }),
+                datarows.GetEnumerable().Select(r =>
+                {
+                    double res; double.TryParse(r[index2], out res); return res;
+                }));
+            window.Show();
+        }
+
+        private void parallelCoordinatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (datarows != null)
             {
@@ -87,21 +104,24 @@ namespace Motley_Vis
             }
         }
 
-        private void load2dBut_MouseClick(object sender, MouseEventArgs e)
+        private void loadFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int index1 = comboBox1.SelectedIndex;
-            int index2 = comboBox2.SelectedIndex;
+            var selectDialog = new OpenFileDialog { Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*" };
+            DialogResult result = selectDialog.ShowDialog();
 
-            var window = new _2D_Data_Graph.GraphView(datarows.FileName, comboBox1.SelectedText, comboBox2.SelectedText,
-                datarows.GetEnumerable().Select(r =>
+            if (result == DialogResult.OK)
+            {
+                DataGridViewVirtual_Load(selectDialog.FileName);
+                comboBox1.Items.Clear();
+                comboBox2.Items.Clear();
+                foreach (var header in datarows.Headers)
                 {
-                    double res; double.TryParse(r[index1], out res); return res;
-                }),
-                datarows.GetEnumerable().Select(r =>
-                {
-                    double res; double.TryParse(r[index2], out res); return res;
-                }));
-            window.Show();
+                    comboBox1.Items.Add(header);
+                    comboBox2.Items.Add(header);
+                }
+                comboBox1.SelectedIndex = 0;
+                comboBox2.SelectedIndex = 0;
+            }
         }
     }
 }
