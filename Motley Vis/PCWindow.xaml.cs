@@ -22,7 +22,6 @@ namespace ParallelCoordinates
     public partial class ParallelCoordinatesWindow : Window
     {
         private readonly List<Axis> axes = new List<Axis>();
-        private readonly List<Tuple<double, double>> ranges = new List<Tuple<double, double>>();
         private readonly List<PcLine> pcLines = new List<PcLine>();
 
         // Margin between the axes and the top and bot of the canvas
@@ -36,13 +35,6 @@ namespace ParallelCoordinates
         public ParallelCoordinatesWindow(IEnumerable<List<double>> rows, List<String> headers)
         {
             InitializeComponent();
-
-            // Setup axes
-            foreach (var header in headers)
-            {
-                var newLn = new Axis(header, this.Canvas);
-                axes.Add(newLn);
-            }
 
             // HACK: needed because the rows must be enumerated twice
             var hacky_rows = rows.ToList();
@@ -64,9 +56,12 @@ namespace ParallelCoordinates
                     }
                 }
             }
+            var ranges = Enumerable.Range(0, headers.Count).Select(i => new Tuple<double, double>(mins[i], maxs[i])).ToList();
+            // Setup axes
             foreach (var i in Enumerable.Range(0, headers.Count))
             {
-                ranges.Add(new Tuple<double, double>(mins[i], maxs[i]));
+                var newLn = new Axis(headers[i], ranges[i], this.Canvas);
+                axes.Add(newLn);
             }
 
             // Setup each PcLine
@@ -142,9 +137,10 @@ namespace ParallelCoordinates
             private readonly Line topTick;
             private readonly Line botTick;
 
-            public Axis(string label, Canvas drawCanvas)
+            private readonly Tuple<double, double> range;
+
+            public Axis(string label, Tuple<double, double> valueRange, Canvas drawCanvas)
             {
-                // TODO
                 nameBlock = new TextBlock {Text = label, Foreground = Brushes.Black};
                 drawCanvas.Children.Add(nameBlock);
 
