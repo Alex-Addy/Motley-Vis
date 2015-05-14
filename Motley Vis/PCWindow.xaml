@@ -3,7 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Parallel Coordinates" Height="768" Width="1024">
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Menu Grid.Row="0"><MenuItem Header="Save" Click="Save_Display"></MenuItem></Menu>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
             <Canvas x:Name="Canvas" SnapsToDevicePixels="True" SizeChanged="Canvas_SizeChanged"/>
         </ScrollViewer>
     </Grid>

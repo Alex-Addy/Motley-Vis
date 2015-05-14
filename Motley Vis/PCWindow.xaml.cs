@@ -1,10 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Brushes = System.Windows.Media.Brushes;
+using Point = System.Windows.Point;
+using Size = System.Windows.Size;
 
 namespace ParallelCoordinates
 {
@@ -22,6 +30,8 @@ namespace ParallelCoordinates
         private const double AxisStrokeThickness = 2;
         private const double LineStrokeThickness = 1;
         private const double MinAxisSpacing = 30;
+        private const int minHeight = 860;
+        private const int minWidth = 1024;
 
         public ParallelCoordinatesWindow(IEnumerable<List<double>> rows, List<String> headers)
         {
@@ -82,11 +92,21 @@ namespace ParallelCoordinates
                 pcLines.Add(new PcLine(percents, this.Canvas));
             }
 
-            Canvas.Width = Math.Max(1024, MinAxisSpacing*axes.Count*2);
-            Canvas.Height = 860;
+            Canvas.Width = Math.Max(minWidth, MinAxisSpacing*axes.Count*2);
+            Canvas.Height = minHeight;
 
             DrawAxes();  // The axis draw MUST happen before the line redraw
             DrawLines(); // so that the lines redraw to the new locations and not the old
+        }
+
+        protected override Size MeasureOverride(Size availableSize)
+        {
+            base.MeasureOverride(availableSize);
+
+            double width = Math.Max(minWidth, MinAxisSpacing*axes.Count*2);
+            double height = minHeight;
+
+            return new Size(width, height);
         }
 
         private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -219,6 +239,35 @@ namespace ParallelCoordinates
                     newPoints.Add(p);
                 }
                 line.Points = newPoints;
+            }
+        }
+
+        private void Save_Display(object sender, RoutedEventArgs e)
+        {
+            var rtb = new RenderTargetBitmap((int)Canvas.RenderSize.Width, (int)Canvas.RenderSize.Height, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+            rtb.Render(Canvas);
+
+            // encode as png
+            BitmapEncoder pngEncoder = new PngBitmapEncoder();
+            pngEncoder.Frames.Add(BitmapFrame.Create(rtb));
+
+            // save to memory stream
+            var ms = new MemoryStream();
+
+            pngEncoder.Save(ms);
+            ms.Close();
+
+            var selectDialog = new SaveFileDialog
+            {
+                FileName = "Parallel Coordinates Dump",
+                DefaultExt = ".png",
+                Filter = "PNG (.png)|*.png"
+            };
+            DialogResult result = selectDialog.ShowDialog();
+
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                File.WriteAllBytes(selectDialog.FileName, ms.ToArray());
             }
         }
     }
