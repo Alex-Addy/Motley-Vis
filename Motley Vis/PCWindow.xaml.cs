@@ -29,7 +29,7 @@ namespace ParallelCoordinates
         private const double TopBotMargin = 30;
         private const double AxisStrokeThickness = 2;
         private const double LineStrokeThickness = 1;
-        private const double MinAxisSpacing = 30;
+        private const double MinAxisSpacing = 50;
         private const int minHeight = 860;
         private const int minWidth = 1024;
 
@@ -145,8 +145,8 @@ namespace ParallelCoordinates
             public Axis(string label, Canvas drawCanvas)
             {
                 // TODO
-                //nameBlock = new TextBlock {Text = label};
-                //drawCanvas.Children.Add(nameBlock);
+                nameBlock = new TextBlock {Text = label, Foreground = Brushes.Black};
+                drawCanvas.Children.Add(nameBlock);
 
                 mainLine = new Line {Y1 = TopBotMargin, Stroke = Brushes.Black, StrokeThickness = AxisStrokeThickness};
                 topTick = new Line {Stroke = Brushes.Black, StrokeThickness = 1.5, Y1 = mainLine.Y1, Y2 = mainLine.Y1};
@@ -174,6 +174,10 @@ namespace ParallelCoordinates
                 botTick.Y2 = newY2;
                 botTick.X1 = newX - tickSize;
                 botTick.X2 = newX + tickSize;
+
+                // draw axis label
+                Canvas.SetTop(nameBlock, TopBotMargin / 2);
+                Canvas.SetLeft(nameBlock, newX - (nameBlock.ActualWidth / 2));
             }
 
             public double Top
@@ -244,19 +248,6 @@ namespace ParallelCoordinates
 
         private void Save_Display(object sender, RoutedEventArgs e)
         {
-            var rtb = new RenderTargetBitmap((int)Canvas.RenderSize.Width, (int)Canvas.RenderSize.Height, 96d, 96d, System.Windows.Media.PixelFormats.Default);
-            rtb.Render(Canvas);
-
-            // encode as png
-            BitmapEncoder pngEncoder = new PngBitmapEncoder();
-            pngEncoder.Frames.Add(BitmapFrame.Create(rtb));
-
-            // save to memory stream
-            var ms = new MemoryStream();
-
-            pngEncoder.Save(ms);
-            ms.Close();
-
             var selectDialog = new SaveFileDialog
             {
                 FileName = "Parallel Coordinates Dump",
@@ -267,6 +258,19 @@ namespace ParallelCoordinates
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
+                var rtb = new RenderTargetBitmap((int)Canvas.RenderSize.Width, (int)Canvas.RenderSize.Height, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+                rtb.Render(Canvas);
+
+                // encode as png
+                BitmapEncoder pngEncoder = new PngBitmapEncoder();
+                pngEncoder.Frames.Add(BitmapFrame.Create(rtb));
+
+                // save to memory stream
+                var ms = new MemoryStream();
+
+                pngEncoder.Save(ms);
+                ms.Close();
+
                 File.WriteAllBytes(selectDialog.FileName, ms.ToArray());
             }
         }
