@@ -98,7 +98,7 @@ namespace ParallelCoordinates
         {
             base.MeasureOverride(availableSize);
 
-            double width = Math.Max(minWidth, MinAxisSpacing*axes.Count*2);
+            double width = Math.Max(minWidth, MinAxisSpacing*(axes.Count+2));
             double height = minHeight;
 
             return new Size(width, height);
