@@ -32,6 +32,9 @@ namespace ParallelCoordinates
         private const int minHeight = 860;
         private const int minWidth = 1024;
 
+        // Z-indexes for various items
+        private const int TextZIndex = 1;
+
         public ParallelCoordinatesWindow(IEnumerable<List<double>> rows, List<String> headers)
         {
             InitializeComponent();
@@ -129,11 +132,15 @@ namespace ParallelCoordinates
                 axis.Draw(spacing*(i+1), this.Canvas.ActualHeight - TopBotMargin);
             }
         }
-        
+
+        #region Axis
+
         private class Axis
         {
             private readonly Line mainLine;
             private readonly TextBlock nameBlock;
+            private readonly TextBlock minBlock;
+            private readonly TextBlock maxBlock;
             private readonly Line topTick;
             private readonly Line botTick;
 
@@ -141,6 +148,12 @@ namespace ParallelCoordinates
 
             public Axis(string label, Tuple<double, double> valueRange, Canvas drawCanvas)
             {
+                range = valueRange;
+                minBlock = new TextBlock {Text = range.Item1.ToString(), Foreground = Brushes.Black};
+                maxBlock = new TextBlock {Text = range.Item2.ToString(), Foreground = Brushes.Black};
+                drawCanvas.Children.Add(minBlock);
+                drawCanvas.Children.Add(maxBlock);
+
                 nameBlock = new TextBlock {Text = label, Foreground = Brushes.Black};
                 drawCanvas.Children.Add(nameBlock);
 
@@ -171,9 +184,19 @@ namespace ParallelCoordinates
                 botTick.X1 = newX - tickSize;
                 botTick.X2 = newX + tickSize;
 
-                // draw axis label
-                Canvas.SetTop(nameBlock, TopBotMargin / 2);
-                Canvas.SetLeft(nameBlock, newX - (nameBlock.ActualWidth / 2));
+                // draw axis labels
+                // magic # is just to get the text off the top tick
+                Canvas.SetTop(nameBlock, TopBotMargin - nameBlock.ActualHeight - 2);
+                Canvas.SetLeft(nameBlock, newX - (nameBlock.ActualWidth/2));
+
+                Canvas.SetLeft(minBlock, newX - minBlock.ActualWidth - 2);
+                Canvas.SetTop(minBlock, TopBotMargin);
+                
+                Canvas.SetZIndex(minBlock, TextZIndex);
+
+                Canvas.SetLeft(maxBlock, newX - maxBlock.ActualWidth - 2);
+                Canvas.SetTop(maxBlock, newY2 - maxBlock.ActualHeight);
+                Canvas.SetZIndex(maxBlock, TextZIndex);
             }
 
             public double Top
@@ -191,6 +214,11 @@ namespace ParallelCoordinates
                 get { return mainLine.X1; }
             }
         }
+
+        #endregion
+
+
+        #region PCLine
 
         /// <summary>
         /// Handles a single Parallel Coordinates line
@@ -235,12 +263,14 @@ namespace ParallelCoordinates
                 {
                     var ax = axes[i];
 
-                    var p = new Point {X = ax.HorizontalPosition, Y = ax.Top + Math.Abs(ax.Top - ax.Bot)*axisLocs[i]};
+                    var p = new Point { X = ax.HorizontalPosition, Y = ax.Top + Math.Abs(ax.Top - ax.Bot) * axisLocs[i] };
                     newPoints.Add(p);
                 }
                 line.Points = newPoints;
             }
-        }
+        } 
+
+        #endregion
 
         private void Save_Display(object sender, RoutedEventArgs e)
         {
