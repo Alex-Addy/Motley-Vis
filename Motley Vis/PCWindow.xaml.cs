@@ -34,7 +34,8 @@ namespace ParallelCoordinates
         private const int minWidth = 1024;
 
         // Z-indexes for various items
-        private const int TextZIndex = 1;
+        private const int TextZIndex = 2;
+        private const int AxisZIndex = 1;
 
         public ParallelCoordinatesWindow(IEnumerable<List<double>> rows, List<String> headers)
         {
@@ -166,6 +167,8 @@ namespace ParallelCoordinates
                 maxBlock = new TextBlock {Text = range.Item2.ToString(), Foreground = Brushes.Black};
                 drawCanvas.Children.Add(minBlock);
                 drawCanvas.Children.Add(maxBlock);
+                Canvas.SetZIndex(minBlock, TextZIndex);
+                Canvas.SetZIndex(maxBlock, TextZIndex);
 
                 nameBlock = new TextBlock {Text = label, Foreground = Brushes.Black};
                 drawCanvas.Children.Add(nameBlock);
@@ -177,6 +180,9 @@ namespace ParallelCoordinates
                 drawCanvas.Children.Add(mainLine);
                 drawCanvas.Children.Add(topTick);
                 drawCanvas.Children.Add(botTick);
+                Canvas.SetZIndex(mainLine, AxisZIndex);
+                Canvas.SetZIndex(topTick, AxisZIndex);
+                Canvas.SetZIndex(botTick, AxisZIndex);
             }
 
             public void Draw(double newX, double newY2)
@@ -203,13 +209,10 @@ namespace ParallelCoordinates
                 Canvas.SetLeft(nameBlock, newX - (nameBlock.ActualWidth/2));
 
                 Canvas.SetLeft(minBlock, newX - minBlock.ActualWidth - 2);
-                Canvas.SetTop(minBlock, TopBotMargin);
-                
-                Canvas.SetZIndex(minBlock, TextZIndex);
+                Canvas.SetTop(minBlock, newY2 - maxBlock.ActualHeight);
 
                 Canvas.SetLeft(maxBlock, newX - maxBlock.ActualWidth - 2);
-                Canvas.SetTop(maxBlock, newY2 - maxBlock.ActualHeight);
-                Canvas.SetZIndex(maxBlock, TextZIndex);
+                Canvas.SetTop(maxBlock, TopBotMargin);
             }
 
             public double Top
@@ -281,7 +284,7 @@ namespace ParallelCoordinates
                 {
                     var ax = axes[i];
 
-                    var p = new Point { X = ax.HorizontalPosition, Y = ax.Top + Math.Abs(ax.Top - ax.Bot) * axisLocs[i] };
+                    var p = new Point { X = ax.HorizontalPosition, Y = ax.Bot - (ax.Top + Math.Abs(ax.Top - ax.Bot) * axisLocs[i]) + ax.Top };
                     newPoints.Add(p);
                 }
                 line.Points = newPoints;
