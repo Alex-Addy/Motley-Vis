@@ -250,7 +250,7 @@ namespace ParallelCoordinates
             }
 
             /// <summary>
-            /// Redraws component line given new axes positions
+            /// Redraws component line given axis positions
             /// </summary>
             /// <param name="axes"></param>
             public void Draw(List<Axis> axes)

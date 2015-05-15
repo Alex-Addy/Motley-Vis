@@ -29,6 +29,7 @@ namespace Motley_Vis
             dataSource = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
             seperationChars = separators;
 
+            // Assume file has headers
             headerList = File.ReadLines(dataSource.Name).Take(1).First().Split(seperationChars).ToList();
             Headers = headerList;
             FileName = fileName;
@@ -47,28 +48,19 @@ namespace Motley_Vis
             // possible indexing implementation:
             //  scan file directly and look for newline characters, storing their index+1 as the start of each line
             dataSource.Seek(0, SeekOrigin.Begin);
-            using (var stream = new StreamReader(dataSource))
+            int rowIndex = 0;
+            foreach (var values in File.ReadLines(dataSource.Name).Skip(1). // skip header line
+                Select(line => line.Split(seperationChars).ToList()).
+                Where(values => values.Count != 0))
             {
-                string line;
-                stream.ReadLine(); // pass up header line
-                
-                int rowIndex = 0;
-                while ((line = stream.ReadLine()) != null)
+                // fill cache
+                if (cache.Capacity > cache.Count)
                 {
-                    // fill cache
-                    if (cache.Capacity > cache.Count)
-                    {
-                        var tempList = line.Split(seperationChars).ToList();
-                        if (tempList.Count > 0)
-                        {
-                            cache[rowIndex] = tempList;
-                        }
-                    }
-
-                    rowIndex++;
+                    cache[rowIndex] = values;
                 }
-                Count = rowIndex;
+                rowIndex++;
             }
+            Count = rowIndex;
         }
 
         /// <summary>
