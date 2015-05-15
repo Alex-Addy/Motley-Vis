@@ -1,0 +1,19 @@
+extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+// Copyright (c) 2015 Alexander Addy
+// Released under MIT license,
+// view License.txt in root of project for full text
+extensions: .aspx .ascx
+<%-- 
+Copyright (c) 2015 Alexander Addy
+Released under MIT license,
+view License.txt in root of project for full text
+--%>
+extensions: .vb
+'Sample license text.
+extensions:  .xml .config .xsd
+<!--
+Copyright (c) 2015 Alexander Addy
+Released under MIT license,
+view License.txt in root of project for full text
+-->

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2015 Alexander Addy
+// Released under MIT license,
+// view License.txt in root of project for full text
+using System;
 using System.Collections.Generic;
 
 namespace Motley_Vis

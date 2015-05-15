@@ -1,13 +1,15 @@
-﻿using System;
+﻿// Copyright (c) 2015 Alexander Addy
+// Released under MIT license,
+// view License.txt in root of project for full text
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;

@@ -1,16 +1,10 @@
-﻿using System;
+﻿// Copyright (c) 2015 Alexander Addy
+// Released under MIT license,
+// view License.txt in root of project for full text
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ParallelCoordinates
 {
