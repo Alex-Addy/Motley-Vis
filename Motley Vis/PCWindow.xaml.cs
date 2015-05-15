@@ -93,8 +93,7 @@ namespace ParallelCoordinates
             Canvas.Width = Math.Max(minWidth, MinAxisSpacing*axes.Count*2);
             Canvas.Height = minHeight;
 
-            DrawAxes();  // The axis draw MUST happen before the line redraw
-            DrawLines(); // so that the lines redraw to the new locations and not the old
+            Draw();
         }
 
         protected override Size MeasureOverride(Size availableSize)
@@ -109,27 +108,25 @@ namespace ParallelCoordinates
 
         private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            DrawAxes();  // The axis draw MUST happen before the line redraw
-            DrawLines(); // so that the lines redraw to the new locations and not the old
+            Draw();
         }
 
-        private void DrawLines()
+        private void Draw()
         {
-            foreach (var pcLine in pcLines)
-            {
-                pcLine.Draw(this.axes);
-            }
-        }
-
-        private void DrawAxes()
-        {
+            // move the axes
             // this refers to the width of the spaces between axes
-            var spacing = Canvas.ActualWidth/(axes.Count + 1);
+            var spacing = Canvas.ActualWidth / (axes.Count + 1);
 
             foreach (var i in Enumerable.Range(0, axes.Count))
             {
                 var axis = axes[i];
-                axis.Draw(spacing*(i+1), this.Canvas.ActualHeight - TopBotMargin);
+                axis.Draw(spacing * (i + 1), this.Canvas.ActualHeight - TopBotMargin);
+            }
+
+            // move the lines
+            foreach (var pcLine in pcLines)
+            {
+                pcLine.Draw(this.axes);
             }
         }
 
