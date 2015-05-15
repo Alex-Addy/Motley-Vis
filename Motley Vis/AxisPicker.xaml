@@ -1,0 +1,24 @@
+﻿<Window x:Class="ParallelCoordinates.AxisPickerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Axis Picker" Height="123" Width="408">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <Button Grid.Row="2" Grid.Column="1"  Content="Swap" HorizontalAlignment="Center" Width="75" Click="Swap_Click"/>
+        <Button Grid.Row="2" Grid.Column="0" Content="Cancel" Width="75" Click="Cancel_Click"/>
+        <ComboBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto" x:Name="FirstBox" Margin="10,12,5,11"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto" x:Name="SecondBox" Margin="5,12,10,11"/>
+        <Label Grid.Row="0" Grid.Column="0"  Content="First Axis" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="Second Axis" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

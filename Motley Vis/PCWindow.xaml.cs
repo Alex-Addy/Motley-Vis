@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -130,6 +131,21 @@ namespace ParallelCoordinates
             }
         }
 
+        private void swapAxes(int indexA, int indexB)
+        {
+            Debug.Assert(indexA >= 0 && indexA < axes.Count);
+            Debug.Assert(indexB >= 0 && indexB < axes.Count);
+
+            var tmp = axes[indexA];
+            axes[indexA] = axes[indexB];
+            axes[indexB] = tmp;
+
+            foreach (var line in pcLines)
+            {
+                line.swap(indexA, indexB);
+            }
+        }
+
         #region Axis
 
         private class Axis
@@ -210,12 +226,17 @@ namespace ParallelCoordinates
             {
                 get { return mainLine.X1; }
             }
+
+            public string Label
+            {
+                get { return nameBlock.Text; }
+            }
         }
 
         #endregion
 
 
-        #region PCLine
+        #region PcLine
 
         /// <summary>
         /// Handles a single Parallel Coordinates line
@@ -265,6 +286,13 @@ namespace ParallelCoordinates
                 }
                 line.Points = newPoints;
             }
+
+            public void swap(int indexA, int indexB)
+            {
+                double tmp = axisLocs[indexA];
+                axisLocs[indexA] = axisLocs[indexB];
+                axisLocs[indexB] = tmp;
+            }
         } 
 
         #endregion
@@ -295,6 +323,19 @@ namespace ParallelCoordinates
                 ms.Close();
 
                 File.WriteAllBytes(selectDialog.FileName, ms.ToArray());
+            }
+        }
+
+        private void Swap_Cols_Onclick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new AxisPickerWindow(axes.Select(ax => ax.Label));
+            if (dialog.ShowDialog() == true)
+            {
+                if (dialog.SelectedIndexes.Item1 != dialog.SelectedIndexes.Item2)
+                {
+                    swapAxes(dialog.SelectedIndexes.Item1, dialog.SelectedIndexes.Item2);
+                    Draw();
+                }
             }
         }
     }
